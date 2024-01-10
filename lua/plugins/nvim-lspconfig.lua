@@ -11,8 +11,6 @@ return {
 		require("neodev").setup({})
 		-- Setup language servers.
 		local lspconfig = require("lspconfig")
-		lspconfig.pyright.setup({})
-		lspconfig.tsserver.setup({})
 		-- Server-specific settings. See `:help lspconfig-setup`
 		--
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -26,6 +24,7 @@ return {
 		}
 		--lspconfig.lua_ls.setup {settings = lua_ls_setup}
 		lspconfig.lua_ls.setup({ settings = lua_ls_setup })
+    --lspconfig.jdtls.setup({settings = {capabilities = capabilities}});
 		-- Global mappings.
 		-- See `:help vim.diagnostic.*` for documentation on any of the below functions
 		vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Diagnostic float" })
