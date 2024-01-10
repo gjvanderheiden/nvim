@@ -4,6 +4,7 @@ return {
 		"folke/neodev.nvim",
 		"hrsh7th/nvim-cmp",
 		"j-hui/fidget.nvim",
+		"SmiteshP/nvim-navbuddy",
 	},
 	config = function()
 		print("config lspconfig")
@@ -24,7 +25,7 @@ return {
 		}
 		--lspconfig.lua_ls.setup {settings = lua_ls_setup}
 		lspconfig.lua_ls.setup({ settings = lua_ls_setup })
-    --lspconfig.jdtls.setup({settings = {capabilities = capabilities}});
+		--lspconfig.jdtls.setup({settings = {capabilities = capabilities}});
 		-- Global mappings.
 		-- See `:help vim.diagnostic.*` for documentation on any of the below functions
 		vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, { desc = "Diagnostic float" })
