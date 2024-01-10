@@ -14,9 +14,7 @@ return {
 				"vim",
 				"vimdoc",
 				"query",
-				"elixir",
 				"python",
-				"heex",
 				"java",
 				"xml",
 				"json",
@@ -25,6 +23,10 @@ return {
 			sync_install = false,
 			highlight = { enable = true },
 			indent = { enable = true },
+      auto_install = true,
+      modules={},
+      ignore_install={}
+
 		})
 	end,
 }
