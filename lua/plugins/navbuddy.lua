@@ -1,5 +1,5 @@
 return {
-	"neovim/nvim-lspconfig",
+	"neovim/nvim-lspconfig", -- required by nvim-lspconfig
 	dependencies = {
 		{
 			"SmiteshP/nvim-navbuddy",
@@ -10,5 +10,4 @@ return {
 			opts = { lsp = { auto_attach = true } },
 		},
 	},
-	-- your lsp config or other stuff
 }
