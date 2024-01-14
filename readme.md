@@ -58,7 +58,7 @@ return {
 ```
 
 ### Attatch on opening a java file JavaType
-This took some digging. The readme on nvim-jdtls tells you to use ftplugin. Though this might work somehow, I used an autocommand, that nicked that nice idea from ... If you don't know what an autocommand is, it's worth to have a look. Basically it's events with listeners. The autocommand listen to opening a buffer wioth a specific file type, Java in this case, and than we call jdtls.start_or_attach() and off we go. 
+This took some digging. The readme on nvim-jdtls tells you to use ftplugin. Though this might work somehow, I used an autocommand, that nicked that nice idea from [here](https://github.com/Alexis12119/nvim-config). If you don't know what an autocommand is, it's worth to have a look. Basically it's events with listeners. The autocommand listen to opening a buffer wioth a specific file type, Java in this case, and than we call jdtls.start_or_attach() and off we go. 
 
 Also we add some Java specific keybindings on the attach, so we have the key bindings when nvim it actually using the Java language server.
 [I do that in this scipt](https://github.com/gjvanderheiden/nvim/blob/main/lua/config/autocommands/jdtls.lua) In this script I'm declaring 2 lua functions, but I only use one. I'm experimenting to see if I can use a simplified version, becase jdtls is installed OS wide with a "jdtls" executable / command on the shell path.
@@ -83,3 +83,12 @@ There is a lot nvim with a bunch of plugins can do. But I'm missing the followin
 ## Missing functionality, just not added yet
 - DAP (debugger)
 - Maybe attach jdtls on the start of a project / workspace or something. Now jdtls starts when any of the Java files are opened. 
+
+
+# Java LSPs
+https://github.com/georgewfraser/java-language-server
+https://github.com/eclipse-jdtls/eclipse.jdt.ls
+
+# Config and howto used
+https://github.com/Alexis12119/nvim-config
+
