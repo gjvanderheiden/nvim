@@ -1,24 +1,22 @@
 # Intention of this repo:
 
-This is just my config I use, so I use this as version control. The setup I'm using is for basic system maintanace / primary text editor as wel as a PDE / IDE. I now use it for Java and lua. So this might be another example how to setup jdtls-nvim. Looking for a one stop clicky click solution? This is not it. Want to know and control how your nvim works? You might pick something up here, that would be nice.
+This is just my config I use, so I use this as version control. The setup I'm using is for basic system maintanace / primary text editor as wel as a PDE / IDE. I now use it for Java and lua. So this might be another example how to setup jdtls-nvim. Looking for a one stop clicky click solution? This is not it. Want to know and control how your nvim works? You might pick something up here, that would be nice. In my scripts I don't check for excistance of installations, nor make it configurable for many users, by design. The advantage is that is keeps the lua scripts shorter. Distos like lazy have to write a lot of checking and glue code, because their goal is to hide this configuration stuff from the user as much as possible.
 
-Maybe I'll do a seperate thing for just Java setup. Lua was pretty straight forward compared to Java with nvim-jdtls. But it does some great stuff.
-
-but I also want to use it for Python, C++/C, CMake. , and Swift
+Maybe I'll do a seperate thing for just Java setup. Lua was pretty straight forward compared to Java with nvim-jdtls. For now I reference to the Java config parts in this readme. But it does some great stuff. I also want to add Python, C++, CMake, Swift and whatever I like to try out.
 
 I wanted to learn vim motions and the basics, because I really started to dislike I could just do some basic editing and
 felt like a real PHEW moment when I succesfully edited and saved a file, especially on the server. I then start to like the way
 the vim motions work and thought, what if I set my CLion, IntelliJ and PyCharm to the vim editor. Now I have a editor with keybindings wich are the same over multiple platforms AND I can move fast, without touching the mouse. This just grew out of hand... I started using nvim more and more, to the point I really want to use it as my primary IDE.
 
-I do not like spring or springboot one bit. So I do not focus on springboot stuff. Don't care for it, never have.
-
-I do wan't to explore more languages, but I'm starting with Java, because I'm formiliar with Java and not with nvim plugins, lua, lsp's etc. I'm used to IntelliJ. It just works. Not so much with nvim.
+I don't care for spring, you won't find that here.
 
 It is not ment as a config as is for everybody, but maybe this can serve as a sort of gist. Yank, Paste and Change Word all you like.
-There are some Nvim distrobutions that handle a lot, and I use them so see what's around and what I like. Also I'm in the proces of setting up my keybindings. I like the <leader> r r for refactor->rename type of thing.
+
+## Why not use a distro
+You certainly could. E.g. LazyVim has a correct setup for Java. I use distros to pick and choose what I like. A distro is not my personal preference, because it takes effort to disable or change stuff too. And I like to know how it all works, so I know my system. Though I've worked many years with Eclipse and then IntelliJ with no issues. The latter just works. But now I've used neovim, I don't want to go back. I'm in the process of choosing keybindings while getting stuff to work. I really like you can do stuff like <leader> r r for [r]efactor->[r]ename. Together with [wich-key](https://github.com/folke/which-key.nvim) that is just simple, efficient and fun to work with.
 
 # Setup
-I do not use Mason, as I like to use system package managers on my favourate OS-es, being MacOs (with homebrew) and Arch Linux (pacman).
+I do not use Mason, as I like to use system package managers on my favourate OS-es, being MacOs (with homebrew) and Arch Linux (pacman). Mason is also a good option, but you'll have to adjust the paths I use in the scripts. Many plugins and distro's use Mason, because you can control de installation directories on the system. Just choose for yourself what you prefer. The description and scripts don't use Mason.
 
 ## Needed packages
 lsp-language-server
@@ -35,11 +33,11 @@ The is a lot to take in when you starting out with language support in nvim. In 
 
 # jdtls config
 ## Do not use nvim-lspconfig for Java / jdtls
-It is possible to use nvim-lspconfig to connect start jdtls, but this doesn't make full use of [nvim-jdtls](https://github.com/mfussenegger/nvim-jdtls). It is in the readme of nvim-jdtls, but to me is was not that ovbious. Instead, ONLY configure nvim-jdtls to attach on Java files in nvim.
+It is possible to use nvim-lspconfig to connect start jdtls, but this doesn't make full use of [nvim-jdtls](https://github.com/mfussenegger/nvim-jdtls). Mainly, it doens't jump to source code of external dependencies. It is in the readme of nvim-jdtls, but to me is was not that ovbious. Instead, ONLY configure nvim-jdtls to attach on Java files in nvim.
 
 ## How to hook up nvim-jdtls
 ### Install Eclipse jdtls
-You van use mason to do this, I use my OS for this. Especially on Arch linux, it's a rolling release distro. On MacOs you have [home brew](https://brew.sh). Both are so quick with updates, amazing work. On homebrew and pacman the package is called jdtls. On Arch it is a AUR package. For Homebrew that's just:
+You van use mason to do this, I use my OS for this. Especially on Arch linux, it's a rolling release distro.  On MacOs you have [home brew](https://brew.sh). Both are so quick with updates, amazing work. On homebrew and pacman the package is called jdtls. On Arch it is a AUR package. For Homebrew that's just:
 ```
 brew install jdtls
 ```
