@@ -30,18 +30,18 @@ It took me a while to find out how this works out. First I tried Java support us
 This is just a summary of what I've found
 The is a lot to take in when you starting out with language support in nvim. In nvim has adopted the LSP, short for Language Server Protocol. Which is a protocol that blablabla see the internet. Then there are the following components:
 - Eclipse jdtls, the language server itself
-- nvim-jdtls, wrapper to attach Eclipse jtdls 
+- nvim-jdtls, wrapper to attach Eclipse jdtls 
 - nvim-lspconfig, pops up when googling around on this topic, but do no use for jdtls!
 
 # jdtls config
 ## Do not use nvim-lspconfig for Java / jdtls
 It is possible to use nvim-lspconfig to connect start jdtls, but this doesn't make full use of [nvim-jdtls](https://github.com/mfussenegger/nvim-jdtls). It is in the readme of nvim-jdtls, but to me is was not that ovbious. Instead, ONLY configure nvim-jdtls to attach on Java files in nvim.
 
-## How to hook up nvim-jtdls
+## How to hook up nvim-jdtls
 ### Install Eclipse jdtls
 You van use mason to do this, I use my OS for this. Especially on Arch linux, it's a rolling release distro. On MacOs you have [home brew](https://brew.sh). Both are so quick with updates, amazing work. On homebrew and pacman the package is called jdtls. On Arch it is a AUR package. For Homebrew that's just:
 ```
-brew isntall jdtls
+brew install jdtls
 ```
 
 If you're using yay on Arch Linux
@@ -61,7 +61,9 @@ return {
 This took some digging. The readme on nvim-jdtls tells you to use ftplugin. Though this might work somehow, I used an autocommand, that nicked that nice idea from [here](https://github.com/Alexis12119/nvim-config). If you don't know what an autocommand is, it's worth to have a look. Basically it's events with listeners. The autocommand listen to opening a buffer wioth a specific file type, Java in this case, and than we call jdtls.start_or_attach() and off we go. 
 
 Also we add some Java specific keybindings on the attach, so we have the key bindings when nvim it actually using the Java language server.
-[I do that in this scipt](https://github.com/gjvanderheiden/nvim/blob/main/lua/config/autocommands/jdtls.lua) In this script I'm declaring 2 lua functions, but I only use one. I'm experimenting to see if I can use a simplified version, becase jdtls is installed OS wide with a "jdtls" executable / command on the shell path.
+[I do that in this scipt](https://github.com/gjvanderheiden/nvim/blob/main/lua/config/autocommands/jdtls.lua). The scripts also does something with bundles, that is for the next section DAP & Test.
+
+I do not use use the java command directly as on the Readme page of nvim-jdtls, but I use the jdtls executable which does everything I need.
 
 The general keybindings are in a [seperate script](https://github.com/gjvanderheiden/nvim/blob/main/lua/config/autocommands/lsp.lua). This autocommand listens to LspAttatch.
 
@@ -71,8 +73,9 @@ Now If you open a Java file, jdtls should run. You can verfiy with
 ```
 in nvim with a Java file opened.
 
-#### DAP, Test and Rabbit
-Work to be done. Maybe some monkeys, who knows.
+#### DAP (debugging in nvim)  & Test
+To be able to run tests within NeoVim, we need to add some more stuff. Just like the LSP config, the plugin nvim-jdtls does not make use of a configuring plugin like nvim-dapconfig and you do not need to define dap.adapters.java, as nvim-jdtls does that for you. You do need to add bundles to the config of jdtls via the nvim-jdtls plugin. It expects a lua table with full path .jar files. I've installed those in /opt/jdtls-bundles on my machine. In that directory I have java-debug and java-test directory, which contains the jars. The jars are extraced from the vscode plugins, because somehow mickeysoft thinks it is a good idea to put ever changing directory names in the plugin source. Now idea. So download the vs-code plugins, extract the jars, put this extention/server contents in /opt/jdtls-bundles/java-debug and /opt/jdtls-bundles/java-test directory. Then add them to the options.
+This is done in the function get_bundles() which is called in the options table. [seperate script](https://github.com/gjvanderheiden/nvim/blob/main/lua/config/autocommands/lsp.lua)
 
 ## Missing functionality
 There is a lot nvim with a bunch of plugins can do. But I'm missing the following:
@@ -81,9 +84,7 @@ There is a lot nvim with a bunch of plugins can do. But I'm missing the followin
 - Build
 - maven editing support, dependency completion I miss the most
 ## Missing functionality, just not added yet
-- DAP (debugger)
 - Maybe attach jdtls on the start of a project / workspace or something. Now jdtls starts when any of the Java files are opened. 
-
 
 # Java LSPs
 https://github.com/georgewfraser/java-language-server
