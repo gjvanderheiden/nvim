@@ -27,7 +27,7 @@ local function add_commands()
     ]])
 end
 
-local simple_config = function()
+local jdtls_config = function()
 	local config = {
 		cmd = { "jdtls", "-data", get_workspace_dir() },
 		root_dir = vim.fs.dirname(vim.fs.find({ "pom.xml", "gradlew", ".git", "mvnw" }, { upward = true })[1]),
@@ -35,9 +35,9 @@ local simple_config = function()
 			bundles = get_bundles() ,
 		},
 	}
-	require("jdtls").start_or_attach(config)
   add_commands()
+  require("jdtls").start_or_attach(config)
 end
 
 
-vim.api.nvim_create_autocmd("FileType", { pattern = "java", callback = simple_config })
+vim.api.nvim_create_autocmd("FileType", { pattern = "java", callback = jdtls_config() })
