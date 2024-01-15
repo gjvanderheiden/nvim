@@ -65,7 +65,7 @@ Also we add some Java specific keybindings on the attach, so we have the key bin
 
 I do not use use the java command directly as on the Readme page of nvim-jdtls, but I use the jdtls executable which does everything I need.
 
-The general keybindings are in a [seperate script](https://github.com/gjvanderheiden/nvim/blob/main/lua/config/autocommands/lsp.lua). This autocommand listens to LspAttatch.
+The general keybindings are in a [seperate script](https://github.com/gjvanderheiden/nvim/blob/main/lua/config/autocommands/lsp-keymaps.lua). This autocommand listens to LspAttatch.
 
 Now If you open a Java file, jdtls should run. You can verfiy with
 ```
@@ -75,7 +75,14 @@ in nvim with a Java file opened.
 
 #### DAP (debugging in nvim)  & Test
 To be able to run tests within NeoVim, we need to add some more stuff. Just like the LSP config, the plugin nvim-jdtls does not make use of a configuring plugin like nvim-dapconfig and you do not need to define dap.adapters.java, as nvim-jdtls does that for you. You do need to add bundles to the config of jdtls via the nvim-jdtls plugin. It expects a lua table with full path .jar files. I've installed those in /opt/jdtls-bundles on my machine. In that directory I have java-debug and java-test directory, which contains the jars. The jars are extraced from the vscode plugins, because somehow mickeysoft thinks it is a good idea to put ever changing directory names in the plugin source. Now idea. So download the vs-code plugins, extract the jars, put this extention/server contents in /opt/jdtls-bundles/java-debug and /opt/jdtls-bundles/java-test directory. Then add them to the options.
-This is done in the function get_bundles() which is called in the options table. [seperate script](https://github.com/gjvanderheiden/nvim/blob/main/lua/config/autocommands/lsp.lua)
+This is done in the function get_bundles() which is called in the options table. [seperate script](https://github.com/gjvanderheiden/nvim/blob/main/lua/config/autocommands/jdtls.lua)
+
+In order to run a class with a Java main method, jdtls needs a call:
+```
+require('jdtls.dap').setup_dap_main_class_configs()
+```
+
+This function only works when the lsp is running. In order to do that I added an [autocommand on LspAttatch](https://github.com/gjvanderheiden/nvim/blob/main/lua/config/autocommands/lsp-jdtls-dap.lua), which calls this function. Not really sure that's correct, but it seems to work.
 
 ## Missing functionality
 There is a lot nvim with a bunch of plugins can do. But I'm missing the following:
