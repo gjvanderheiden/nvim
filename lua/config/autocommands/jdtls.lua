@@ -40,4 +40,4 @@ local jdtls_config = function()
 end
 
 
-vim.api.nvim_create_autocmd("FileType", { pattern = "java", callback = jdtls_config() })
+vim.api.nvim_create_autocmd("FileType", { pattern = "java", callback = jdtls_config })
