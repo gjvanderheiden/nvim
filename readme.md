@@ -90,6 +90,7 @@ There is a lot nvim with a bunch of plugins can do. But I'm missing the followin
 - maven editing support, dependency completion I miss the most
 ## Missing functionality, just not added yet
 - Maybe attach jdtls on the start of a project / workspace or something. Now jdtls starts when any of the Java files are opened. 
+- Git with diff
 
 # Java LSPs
 https://github.com/georgewfraser/java-language-server
