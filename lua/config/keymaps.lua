@@ -1,4 +1,4 @@
-local wk = require("which-key")
+--local wk = require("which-key")
 
 -- move visual selected text
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -36,7 +36,7 @@ vim.keymap.set("n", "<leader>fb", builtin.buffers, {desc="[f]loat [b]uffers}"})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {desc="[f]loat [h]elp tags"})
 
 --Trouble 
-wk.register("x" ,"Trouble");
+--wk.register("x" ,"Trouble");
 local trouble = require("trouble")
 vim.keymap.set("n", "<leader>xx", trouble.toggle, { desc = "Toggle trouble" })
 vim.keymap.set("n", "<leader>xw", function()
