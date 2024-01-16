@@ -1,28 +1,63 @@
 local wk = require("which-key")
 
 local function wk_leader_key(key, key_description)
-  local mapping = {}
-  mapping[key] = { name = key_description }
-  wk.register(mapping, { prefix = "<leader>" })
+	local mapping = {}
+	mapping[key] = { name = key_description }
+	wk.register(mapping, { prefix = "<leader>" })
 end
 local function navbuddy()
-  require("nvim-navbuddy").open()
+	require("nvim-navbuddy").open()
 end
 local function listClasses()
-  local buffer = vim.api.nvim_get_current_buf()
-  local params = {query="org.happy", sourceOnly=true}
-  vim.lsp.buf_request(buffer, "java/searchSymbols", params, function(err, server_result, _, _)
-    if err then
-      vim.api.nvim_err_writeln("Error when finding workspace symbols: " .. err.message)
-      print(err.message)
-      return
-    end
-    print(server_result)
-  end)
+	local buffer = vim.api.nvim_get_current_buf()
+	local params = { query = "*", sourceOnly = true }
+	vim.lsp.buf_request(buffer, "java/searchSymbols", params, function(err, server_result, _, _)
+		if err then
+			vim.api.nvim_err_writeln("Error when finding workspace symbols: " .. err.message)
+			return
+		end
+		local pickers = require("telescope.pickers")
+		local locations = vim.lsp.util.symbols_to_items(server_result or {}, buffer) or {}
+		if locations == nil then
+			-- error message already printed in `utils.filter_symbols`
+			return
+		end
+
+		if vim.tbl_isempty(locations) then
+			require("telescope.utils").notify("builtin.lsp_workspace_symbols", {
+				msg = "No results from workspace/symbol. Maybe try a different query: "
+					.. "'Telescope lsp_workspace_symbols query=example'",
+				level = "INFO",
+			})
+			return
+		end
+		local opts = {}
+
+		opts.ignore_filename = vim.F.if_nil(opts.ignore_filename, false)
+
+		local conf = require("telescope.config").values
+		local finders = require("telescope.finders")
+
+		local make_entry = require("telescope.make_entry")
+		pickers
+			.new(opts, {
+				prompt_title = "LSP Workspace Symbols",
+				finder = finders.new_table({
+					results = locations,
+					entry_maker = opts.entry_maker or make_entry.gen_from_lsp_symbols(opts),
+				}),
+				previewer = conf.qflist_previewer(opts),
+				sorter = conf.prefilter_sorter({
+					tag = "symbol_type",
+					sorter = conf.generic_sorter(opts),
+				}),
+			})
+			:find()
+	end)
 end
 
 vim.keymap.set("n", "<leader>a", listClasses)
-vim.keymap.set("n", "<leader>n",navbuddy, { desc = "Navbuddy" })
+vim.keymap.set("n", "<leader>n", navbuddy, { desc = "Navbuddy" })
 -- move visual selected text
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -64,17 +99,17 @@ wk_leader_key("x", "Trouble")
 local trouble = require("trouble")
 vim.keymap.set("n", "<leader>xx", trouble.toggle, { desc = "Toggle trouble" })
 vim.keymap.set("n", "<leader>xw", function()
-  trouble.toggle("workspace_diagnostics")
+	trouble.toggle("workspace_diagnostics")
 end, { desc = "Workspace diagnostics" })
 vim.keymap.set("n", "<leader>xd", function()
-  trouble.toggle("document_diagnostics")
+	trouble.toggle("document_diagnostics")
 end, { desc = "Document diagnostics" })
 vim.keymap.set("n", "<leader>xq", function()
-  trouble.toggle("quickfix")
+	trouble.toggle("quickfix")
 end, { desc = "Quickfix" })
 vim.keymap.set("n", "<leader>xl", function()
-  trouble.toggle("loclist")
+	trouble.toggle("loclist")
 end, { desc = "Loc list" })
 vim.keymap.set("n", "gR", function()
-  trouble.toggle("lsp_references")
+	trouble.toggle("lsp_references")
 end, { desc = "LSP references (trsble)" })
