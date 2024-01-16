@@ -2,10 +2,13 @@ local wk = require("which-key")
 
 local function wk_leader_key(key, key_description)
   local mapping = {}
-  mapping[key] = {name = key_description}
+  mapping[key] = { name = key_description }
   wk.register(mapping, { prefix = "<leader>" })
 end
-
+local function navbuddy()
+  require("nvim-navbuddy").open()
+end
+vim.keymap.set("n", "<leader>n",navbuddy, { desc = "Navbuddy" })
 -- move visual selected text
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -29,10 +32,10 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 --vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 --Diagnostics
-vim.keymap.set("n", "<space>d", vim.diagnostic.open_float, { desc = "Diagnostic float" })
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Diagnostic float" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Goto previous diagnostic" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Goto next diagnostic" })
-vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, { desc = "Diagnostic set loc list" })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostic set loc list" })
 
 --Telescope
 wk_leader_key("s", "[S]earch")
@@ -42,10 +45,8 @@ vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch [g]rep" 
 vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[S]earch [b]uffers}" })
 vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [h]elp tags" })
 
-
 --Trouble
 wk_leader_key("x", "Trouble")
-
 local trouble = require("trouble")
 vim.keymap.set("n", "<leader>xx", trouble.toggle, { desc = "Toggle trouble" })
 vim.keymap.set("n", "<leader>xw", function()
@@ -62,4 +63,4 @@ vim.keymap.set("n", "<leader>xl", function()
 end, { desc = "Loc list" })
 vim.keymap.set("n", "gR", function()
   trouble.toggle("lsp_references")
-end, { desc = "LSP references (trouble)" })
+end, { desc = "LSP references (trsble)" })
