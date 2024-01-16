@@ -8,6 +8,20 @@ end
 local function navbuddy()
   require("nvim-navbuddy").open()
 end
+local function listClasses()
+  local buffer = vim.api.nvim_get_current_buf()
+  local params = {query="org.happy", sourceOnly=true}
+  vim.lsp.buf_request(buffer, "java/searchSymbols", params, function(err, server_result, _, _)
+    if err then
+      vim.api.nvim_err_writeln("Error when finding workspace symbols: " .. err.message)
+      print(err.message)
+      return
+    end
+    print(server_result)
+  end)
+end
+
+vim.keymap.set("n", "<leader>a", listClasses)
 vim.keymap.set("n", "<leader>n",navbuddy, { desc = "Navbuddy" })
 -- move visual selected text
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
