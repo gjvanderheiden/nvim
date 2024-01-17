@@ -43,7 +43,7 @@ local function listClasses()
 		local make_entry = require("telescope.make_entry")
 		pickers
 			.new(opts, {
-				prompt_title = "LSP Workspace Symbols",
+				prompt_title = "Workspace Classes",
 				finder = finders.new_table({
 					results = locations,
 					entry_maker = opts.entry_maker or make_entry.gen_from_lsp_symbols(opts),
