@@ -5,9 +5,11 @@ local function wk_leader_key(key, key_description)
 	mapping[key] = { name = key_description }
 	wk.register(mapping, { prefix = "<leader>" })
 end
+
 local function navbuddy()
 	require("nvim-navbuddy").open()
 end
+
 local function listClasses()
 	local buffer = vim.api.nvim_get_current_buf()
 	local params = { query = "*", sourceOnly = true }
