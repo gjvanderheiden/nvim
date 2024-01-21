@@ -22,5 +22,6 @@ return {
 		}
 		lspconfig.lua_ls.setup({ settings = lua_ls_setup })
     lspconfig.clangd.setup({cmd={"clangd-17"}})
+    lspconfig.pyright.setup({})
 	end,
 }
