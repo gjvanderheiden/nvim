@@ -21,7 +21,7 @@ return {
 			capabilities = capabilities,
 		}
 		lspconfig.lua_ls.setup({ settings = lua_ls_setup })
-    lspconfig.clangd.setup({cmd={"clangd-17"}})
+    lspconfig.clangd.setup({cmd={"/home/gertjan/.local/share/clang/bin/clangd"}})
     lspconfig.pyright.setup({})
 	end,
 }
