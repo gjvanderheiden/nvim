@@ -11,7 +11,7 @@ return {
 		require("fidget").setup({})
 		require("neodev").setup({})
 		local lspconfig = require("lspconfig")
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		local lua_ls_setup = {
 			Lua = {
 				completion = {
@@ -21,7 +21,8 @@ return {
 			capabilities = capabilities,
 		}
 		lspconfig.lua_ls.setup({ settings = lua_ls_setup })
-    lspconfig.clangd.setup({cmd={"/home/gertjan/.local/share/clang/bin/clangd"}})
-    lspconfig.pyright.setup({})
+		local home = os.getenv("HOME")
+		lspconfig.clangd.setup({ cmd = { home .. "/.local/share/clang/bin/clangd" } })
+		lspconfig.pyright.setup({})
 	end,
 }
