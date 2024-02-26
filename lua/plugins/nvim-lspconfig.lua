@@ -24,5 +24,6 @@ return {
 		local home = os.getenv("HOME")
 		lspconfig.clangd.setup({ cmd = { home .. "/.local/share/clang/bin/clangd" } })
 		lspconfig.pyright.setup({})
+    lspconfig.lemminx.setup({})
 	end,
 }
