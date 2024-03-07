@@ -21,8 +21,7 @@ return {
 			capabilities = capabilities,
 		}
 		lspconfig.lua_ls.setup({ settings = lua_ls_setup })
-		local home = os.getenv("HOME")
-		lspconfig.clangd.setup({ cmd = { home .. "/.local/share/clang/bin/clangd" } })
+		lspconfig.clangd.setup({ cmd = { "clangd" } })
 		lspconfig.pyright.setup({})
     lspconfig.lemminx.setup({})
 	end,
