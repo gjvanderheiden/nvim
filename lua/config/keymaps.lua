@@ -3,7 +3,9 @@ local wk = require("which-key")
 local function wk_leader_key(key, key_description)
 	local mapping = {}
 	mapping[key] = { name = key_description }
-	wk.register(mapping, { prefix = "<leader>" })
+  --wk.register(mapping, { prefix = "<leader>" })
+
+  wk.add({"<leader>"..key, group=key_description})
 end
 
 local function navbuddy()
