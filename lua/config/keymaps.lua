@@ -1,10 +1,6 @@
 local wk = require("which-key")
 
 local function wk_leader_key(key, key_description)
-	local mapping = {}
-	mapping[key] = { name = key_description }
-  --wk.register(mapping, { prefix = "<leader>" })
-
   wk.add({"<leader>"..key, group=key_description})
 end
 
@@ -60,8 +56,8 @@ local function listClasses()
 	end)
 end
 
-vim.keymap.set("n", "<leader>a", listClasses)
-vim.keymap.set("n", "<leader>n", navbuddy, { desc = "Navbuddy" })
+vim.keymap.set("n", "<leader>a", listClasses, {desc="List classes"})
+vim.keymap.set("n", "<leader>n", navbuddy, { desc = "[N]avbuddy" })
 -- move visual selected text
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -78,14 +74,14 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "J", "mzJ`z")
 
 -- paste over deletion or something
-vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("x", "<leader>p", [["_dP]], {desc="Paste over deletion"})
 -- next greatest remap ever : asbjornHaland
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], {desc="eeh"})
+vim.keymap.set("n", "<leader>Y", [["+Y]], {desc="eeeh2"})
 --vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 --Diagnostics
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Diagnostic float" })
+vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Diagnostic float" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Goto previous diagnostic" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Goto next diagnostic" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostic set loc list" })
@@ -163,3 +159,9 @@ end,{desc = "float scopes widgets"})
 vim.keymap.set("n", "<Leader>du", function()
 	require("dapui").toggle()
 end,{desc = "Toggle [U]I"})
+
+wk_leader_key("c", "[C]ode")
+wk_leader_key("g", "[G]it")
+wk_leader_key("h", "[H]unk")
+wk_leader_key("w", "[W]orkspace")
+wk_leader_key("r", "[R]efactor" )
