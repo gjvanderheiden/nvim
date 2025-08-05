@@ -1,8 +1,11 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
+clangd_cmd = clangd
+if vim.env.LLVM_HOME then
+clangd_cmd = vim.env.LLVM_HOME .. '/bin/clangd'
+end
 vim.lsp.config.clangd = {
-  cmd = { vim.env.LLVM_HOME .. '/bin/clangd', '--query-driver=** --compile-commands-dir=build --experimental-modules-support --background-index' },
+  cmd = { clangd_cmd, '--query-driver=** --compile-commands-dir=build --experimental-modules-support --background-index' },
   root_markers = { 'compile_commands.json', 'compile_flags.txt' },
   filetypes = { 'c', 'cpp' },
 }
