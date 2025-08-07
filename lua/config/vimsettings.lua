@@ -1,26 +1,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-clangd_cmd = clangd
-if vim.env.LLVM_HOME then
-clangd_cmd = vim.env.LLVM_HOME .. '/bin/clangd'
-end
-vim.lsp.config.clangd = {
-  cmd = { clangd_cmd, '--query-driver=** --compile-commands-dir=build --experimental-modules-support --background-index' },
-  root_markers = { 'compile_commands.json', 'compile_flags.txt' },
-  filetypes = { 'c', 'cpp' },
-}
-
-vim.lsp.enable({'clangd'})
 
 vim.diagnostic.config({ virtual_text = true })
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    if client:supports_method('textDocument/completion') then
-      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-    end
-  end,
-})
+
 -- Make line numbers default
 vim.wo.number = true
 -- Show relative linenumbers
@@ -51,7 +33,7 @@ vim.o.undofile = true
 vim.wo.signcolumn = 'yes'
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menuone,noselect,popup'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
