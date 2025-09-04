@@ -1,6 +1,6 @@
 require("config.vimsettings")
-require("config.lsp")
 require("config.lazy")
+require("config.lsp")
 require("config.autocommands.highlight-yanked")
 require("config.autocommands.lsp-keymaps")
 require("config.keymaps")

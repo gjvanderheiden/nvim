@@ -26,7 +26,7 @@ return {
 				port = "${port}",
 				executable = {
 					-- CHANGE THIS to your path!
-					command = "/opt/codelldb/adapter/codelldb",
+					command = "/usr/bin/codelldb",
 
 					args = { "--port", "${port}" },
 				},

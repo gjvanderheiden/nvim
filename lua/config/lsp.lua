@@ -1,15 +1,18 @@
 -- C++ Clang config
-clangd_cmd = 'clangd'
+clangd_cmd = "clangd"
 if vim.env.LLVM_HOME then
-clangd_cmd = vim.env.LLVM_HOME .. '/bin/clangd'
+	clangd_cmd = vim.env.LLVM_HOME .. "/bin/clangd"
 end
-vim.lsp.config.cpp = {
-  cmd = { clangd_cmd, '--query-driver=** --compile-commands-dir=build --experimental-modules-support --background-index' },
-  root_markers = { 'compile_commands.json', 'compile_flags.txt' },
-  filetypes = { 'c', 'cpp' },
-}
+vim.lsp.config("clangd", {
+	cmd = {
+		clangd_cmd,
+		"--query-driver=** --compile-commands-dir=build --experimental-modules-support --background-index",
+	},
+	root_markers = { "compile_commands.json", "compile_flags.txt" },
+	filetypes = { "c", "cpp" },
+})
 
--- Java jdtls config 
+-- Java jdtls config
 local function get_workspace_dir()
 	local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 	return vim.fn.stdpath("cache") .. "/jdtlsworkspaces/" .. project_name
@@ -26,21 +29,16 @@ local function add_commands()
     ]])
 end
 
-vim.lsp.config.java = {
-  cmd = { 'jdtls', '-data', get_workspace_dir() },
-  root_markers = { 'pom.xml', 'gradlew', '.git' },
-  filetypes = { 'java' },
-}
 
-vim.lsp.enable({'cpp', 'java'})
+vim.lsp.enable({ "clangd", "jdtls","lua" })
 
 vim.diagnostic.config({ virtual_text = true })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    if client:supports_method('textDocument/completion') then
-      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-    end
-  end,
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(ev)
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		if client:supports_method("textDocument/completion") then
+			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+		end
+	end,
 })
